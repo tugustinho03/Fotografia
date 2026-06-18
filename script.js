@@ -293,6 +293,9 @@ function getBase64ForEmail({ maxWidth = 900, quality = 0.75 } = {}) {
   off.width    = w;
   off.height   = h;
   const offCtx = off.getContext("2d");
+  // Fundo branco para evitar preto no JPEG (que não suporta transparência)
+  offCtx.fillStyle = "#ffffff";
+  offCtx.fillRect(0, 0, w, h);
   offCtx.filter = buildFilterString();
   offCtx.drawImage(photo.img, 0, 0, w, h);
 
