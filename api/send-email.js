@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   const API_KEY      = process.env.BREVO_API_KEY;
   const SENDER_EMAIL  = process.env.BREVO_SENDER_EMAIL;
-  const SENDER_NAME   = process.env.BREVO_SENDER_NAME || "Câmara Escura Digital";
+  const SENDER_NAME   = process.env.BREVO_SENDER_NAME || "Badalas Lda";
 
   if (!API_KEY || !SENDER_EMAIL) {
     return res.status(500).json({
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Imagem em falta." });
   }
   // Limite de segurança: ~7MB em base64 (evita pedidos enormes/abuso)
-  if (imageBase64.length > 7_000_000) {
+  if (imageBase64.length > 35_000_000) {
     return res.status(400).json({ message: "Imagem demasiado grande." });
   }
 
@@ -45,19 +45,19 @@ export default async function handler(req, res) {
 
   const htmlBody = `
     <div style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:24px;">
-      <h2 style="color:#d94a10;margin:0 0 12px">📷 Câmara Escura Digital</h2>
+      <h2 style="color:#d94a10;margin:0 0 12px"> Jornal Badaladas📰</h2>
       <p style="color:#444;margin:0 0 20px">${escapeHtml(mensagem)}</p>
       <img src="cid:foto_editada" alt="Foto editada"
            style="max-width:100%;border-radius:6px;display:block;">
       <p style="color:#999;font-size:12px;margin:16px 0 0">
-        Foto editada com Câmara Escura Digital
+        Foto editada pelo Jornal Badaladas
       </p>
     </div>`;
 
   const payload = {
     sender: { name: SENDER_NAME, email: SENDER_EMAIL },
     to: [{ email: toEmail }],
-    subject: "A tua foto editada — Câmara Escura Digital",
+    subject: "A tua foto editada — Badaladas Lda",
     htmlContent: htmlBody,
     attachment: [{ content: imageBase64, name: safeFileName }],
   };
