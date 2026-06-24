@@ -281,7 +281,7 @@ downloadBtn.addEventListener("click", () => {
 /* Preparar imagem para email (base64 JPEG reduzido)                      */
 /* ---------------------------------------------------------------------- */
 
-function getBase64ForEmail({ maxWidth = 900, quality = 0.75 } = {}) {
+function getBase64ForEmail({ maxWidth = 2400, quality = 0.97 } = {}) {
   const photo = currentPhoto();
   if (!photo) return null;
 
@@ -328,8 +328,8 @@ sendBtn.addEventListener("click", async () => {
     emailTo.focus(); return;
   }
   const base64 = resizeForEmail.checked
-    ? getBase64ForEmail({ maxWidth: 900, quality: 0.75 })
-    : getBase64ForEmail({ maxWidth: 1600, quality: 0.88 });
+    ? getBase64ForEmail({ maxWidth: 1200, quality: 0.92 })
+    : getBase64ForEmail({ maxWidth: 2400, quality: 0.97 });
 
   if (!base64) { setStatus("Não foi possível processar a imagem.", "error"); return; }
 
